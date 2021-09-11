@@ -1,1 +1,1 @@
-Projects by Christopher Briggs
+Code by Christopher Briggs
