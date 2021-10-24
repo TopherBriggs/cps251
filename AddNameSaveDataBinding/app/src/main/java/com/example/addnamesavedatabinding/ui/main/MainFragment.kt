@@ -6,43 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.example.addnamesavedatabinding.R
+
 import com.example.addnamesavedatabinding.databinding.MainFragmentBinding
-
-
+import com.example.addnamesavedatabinding.BR.myViewModel
 
 class MainFragment : Fragment() {
-
-    private var _binding: MainFragmentBinding? = null
-    private val binding get() = _binding!!
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
     private lateinit var viewModel: MainViewModel
+    lateinit var binding: MainFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false)
+        binding.setLifecycleOwner(this)
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        binding.message.text = viewModel.getName()
 
-        binding.button.setOnClickListener {
-            viewModel.addName(binding.nameInput.text.toString())
-            binding.message.text = viewModel.getName()
-        }
+        binding.setVariable(myViewModel, viewModel)
 
     }
 

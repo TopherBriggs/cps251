@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AddName SaveData</string>
+    <string name="app_name">AddName SaveDataBinding</string>
     <string name="main_fragment">No Names to display</string>
     <string name="button">Add Name</string>
     <string name="NameInput">Enter Name</string>
