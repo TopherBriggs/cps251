@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Navigation Project</string>
+    <string name="button1">Display Image 1</string>
+    <string name="button2">Display Image 2</string>
+    <string name="button3">Display Image 3</string>
+</resources>
