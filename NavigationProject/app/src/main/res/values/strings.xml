@@ -3,4 +3,6 @@
     <string name="button1">Display Image 1</string>
     <string name="button2">Display Image 2</string>
     <string name="button3">Display Image 3</string>
+    <string name="textview">TextView</string>
+    <string name="droid_picture">Droid Picture</string>
 </resources>

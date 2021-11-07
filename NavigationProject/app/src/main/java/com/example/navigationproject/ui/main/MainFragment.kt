@@ -43,6 +43,20 @@ class MainFragment : Fragment() {
             action.setImagePath(R.drawable.android_image_1)
             Navigation.findNavController(it).navigate(action)
         }
+        binding.button2.setOnClickListener {
+            val action : MainFragmentDirections.ActionMainFragmentToSecondFragment =
+                MainFragmentDirections.actionMainFragmentToSecondFragment()
+            action.setName("Image 2")
+            action.setImagePath(R.drawable.android_image_2)
+            Navigation.findNavController(it).navigate(action)
+        }
+        binding.button3.setOnClickListener {
+            val action : MainFragmentDirections.ActionMainFragmentToSecondFragment =
+                MainFragmentDirections.actionMainFragmentToSecondFragment()
+            action.setName("Image 3")
+            action.setImagePath(R.drawable.android_image_3)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
 }
