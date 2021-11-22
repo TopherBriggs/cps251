@@ -1,11 +1,14 @@
 package com.example.recyclerviewintentproject
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+
 
 class RecyclerAdapter(private val Titles: List<Int>, private val Details : List<Int>, private val Images : List<Int>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -28,7 +31,6 @@ class RecyclerAdapter(private val Titles: List<Int>, private val Details : List<
 
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
@@ -40,6 +42,17 @@ class RecyclerAdapter(private val Titles: List<Int>, private val Details : List<
             itemImage = itemView.findViewById(R.id.itemImage)
             itemTitle = itemView.findViewById(R.id.itemTitle)
             itemDetail = itemView.findViewById(R.id.itemDetail)
+
+            itemView.setOnClickListener { v: View ->
+                val i = Intent(v.context,MainActivity2::class.java)
+
+                i.putExtra("Title", Titles[adapterPosition])
+                i.putExtra("Detail", Details[adapterPosition])
+                i.putExtra("Image", Images[adapterPosition])
+
+                startActivity(v.context,i,null)
+
+            }
 
         }
     }
