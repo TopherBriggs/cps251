@@ -79,7 +79,6 @@ class MainFragment : Fragment() {
         viewModel.getSearchResults().observe(this, Observer { products ->
 
             products?.let {
-                Log.d("bees", "0:" + it[0].contactName)
                 if (it.isNotEmpty()) {
                     binding.productID.text = it[0].id.toString()
                     binding.contactName.setText(it[0].contactName)
