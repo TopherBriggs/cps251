@@ -1,26 +1,25 @@
 package com.example.contactsproject.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.contactsproject.Product
-import com.example.contactsproject.ProductRepository
+import com.example.contactsproject.Contact
+import com.example.contactsproject.ContactRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: ProductRepository = ProductRepository(application)
-    private var allProducts: LiveData<List<Product>>?
-    private val searchResults: MutableLiveData<List<Product>>
+    private val repository: ContactRepository = ContactRepository(application)
+    private var allContacts: LiveData<List<Contact>>?
+    private val searchResults: MutableLiveData<List<Contact>>
 
     init {
-        allProducts = repository.allProductsAsc
+        allContacts = repository.allContactsAsc
         searchResults = repository.searchResults
     }
 
-    fun insertProduct(product: Product) {
-        repository.insertProduct(product)
+    fun insertProduct(contact: Contact) {
+        repository.insertProduct(contact)
 
     }
 
@@ -29,21 +28,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun deleteProduct(id: Int) {
-        repository.deleteProduct(id)
+        repository.deleteContact(id)
     }
 
-    fun getSearchResults(): MutableLiveData<List<Product>> {
+    fun getSearchResults(): MutableLiveData<List<Contact>> {
         return searchResults
     }
 
-    fun getAllProducts(): LiveData<List<Product>>? {
-        return allProducts
+    fun getAllContacts(): LiveData<List<Contact>>? {
+        return allContacts
     }
     fun sortASC(){
-        allProducts = repository.allProductsAsc
+        allContacts = repository.allContactsAsc
     }
     fun sortDESC(){
-        allProducts = repository.allProductsDesc
+        allContacts = repository.allContactsDesc
 
     }
 }

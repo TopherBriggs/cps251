@@ -26,12 +26,14 @@
             android:layout_height="85dp"
             android:adjustViewBounds="false"
             android:backgroundTint="#81C784"
+            android:contentDescription="@string/delete_icon"
             android:cropToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/itemDetail"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RedundantDescriptionCheck"
             tools:src="@drawable/ic_baseline_delete_24" />
 
         <TextView

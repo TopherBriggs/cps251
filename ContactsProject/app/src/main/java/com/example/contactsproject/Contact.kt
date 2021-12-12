@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "contacts")
-class Product {
+class Contact {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -17,14 +17,14 @@ class Product {
     var contactName: String? = null
     var phoneNumber: String = ""
 
-    constructor() {}
+    constructor()
 
-    constructor(id: Int, productName: String, phoneNumber: String) {
-        this.contactName = productName
+    constructor(id: Int, contactName: String, phoneNumber: String) {
+        this.contactName = contactName
         this.phoneNumber = phoneNumber
     }
-    constructor(productName: String, phoneNumber: String) {
-        this.contactName = productName
+    constructor(contactName: String, phoneNumber: String) {
+        this.contactName = contactName
         this.phoneNumber = phoneNumber
     }
 }

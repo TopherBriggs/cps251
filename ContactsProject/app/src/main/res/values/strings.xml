@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Contacts Project</string>
-    <string name="product_id">Product ID</string>
+    <string name="contact_id">Contact ID</string>
     <string name="not_assigned">Not assigned</string>
-    <string name="product_name">Contact Name</string>
-    <string name="product_quantity">Phone Number</string>
+    <string name="contact_name">Contact Name</string>
+    <string name="contact_phone">Phone Number</string>
+    <string name="delete_icon">delete button</string>
     <string name="add_string">Add</string>
     <string name="find_string">Find</string>
     <string name="ASC_string">ASC</string>
+    <string name="Desc_string">Desc</string>
+
 </resources>

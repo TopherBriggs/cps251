@@ -5,15 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.util.Log
-import com.example.contactsproject.R
 
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.contactsproject.Product
+import com.example.contactsproject.Contact
 import androidx.fragment.app.viewModels
-
-import java.util.*
 
 import com.example.contactsproject.databinding.MainFragmentBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
@@ -21,14 +16,14 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment(), OnButtonClickListener{
 
-    private var adapter: ProductListAdapter? = null
+    private var adapter: ContactListAdapter? = null
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
 
-    val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -52,11 +47,11 @@ class MainFragment : Fragment(), OnButtonClickListener{
 
         binding.addButton.setOnClickListener {
             val name = binding.contactName.text.toString()
-            val quantity = binding.phoneNumber.text.toString()
+            val phoneNumber = binding.phoneNumber.text.toString()
 
-            if (name != "" && quantity != "") {
-                val product = Product(name, quantity)
-                viewModel.insertProduct(product)
+            if (name != "" && phoneNumber != "") {
+                val contact = Contact(name, phoneNumber)
+                viewModel.insertProduct(contact)
                 clearFields()
                 observerSetup()
             } else {
@@ -77,20 +72,17 @@ class MainFragment : Fragment(), OnButtonClickListener{
 
     private fun observerSetup() {
 
-        viewModel.getAllProducts()?.observe(viewLifecycleOwner, Observer { products ->
-            products?.let  {
-                adapter?.setProductList(it)
+        viewModel.getAllContacts()?.observe(viewLifecycleOwner, { contacts ->
+            contacts?.let  {
+                adapter?.setContactList(it)
             }
         })
 
-        viewModel.getSearchResults().observe(viewLifecycleOwner, Observer { products ->
+        viewModel.getSearchResults().observe(viewLifecycleOwner, { contacts ->
 
-            products?.let {
+            contacts?.let {
                 if (it.isNotEmpty()) {
-//                    binding.productID.text = it[0].id.toString()
-//                    binding.contactName.setText(it[0].contactName)
-//                    binding.phoneNumber.setText(it[0].phoneNumber);
-                    adapter?.setProductList(it)
+                    adapter?.setContactList(it)
                 } else {
                    Snackbar.make(requireView(), "No names to Display", LENGTH_SHORT).show()
                 }
@@ -99,7 +91,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
     }
 
     private fun recyclerSetup() {
-        adapter = ProductListAdapter(R.layout.product_list_item, this)
+        adapter = ContactListAdapter(this)
         binding.productRecycler.layoutManager = LinearLayoutManager(context)
         binding.productRecycler.adapter = adapter
     }
@@ -109,7 +101,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
         binding.phoneNumber.setText("")
     }
 
-    override fun onButtonClick(data: Product) {
+    override fun onButtonClick(data: Contact) {
         viewModel.deleteProduct(data.id)
     }
 }

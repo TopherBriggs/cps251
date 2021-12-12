@@ -4,24 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contactsproject.Product
+import com.example.contactsproject.Contact
 import com.example.contactsproject.R
 
-class ProductListAdapter(private val productItemLayout: Int, listen : OnButtonClickListener) :
-    RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
-    var listener : OnButtonClickListener = listen
-    private var productList: List<Product>? = null
-
-//    override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-//        val item = holder.item
-//        productList.let {
-//            item.text = it!![listPosition].contactName
-//        }
-//    }
-
+class ContactListAdapter(listen: OnButtonClickListener) :
+    RecyclerView.Adapter<ContactListAdapter.ViewHolder>() {
+    private var listener : OnButtonClickListener = listen
+    private var contactList: List<Contact>? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -29,30 +20,27 @@ class ProductListAdapter(private val productItemLayout: Int, listen : OnButtonCl
         return ViewHolder(v)
     }
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        productList.let {
+        contactList.let {
 
             viewHolder.itemTitle.text = it!![i].contactName
             viewHolder.itemDetail.text = it[i].phoneNumber
             viewHolder.trash.setImageResource(R.drawable.ic_baseline_delete_24)
-            viewHolder.trash.setOnClickListener(View.OnClickListener {
-                val data: Product = productList!![i]
+            viewHolder.trash.setOnClickListener {
+                val data: Contact = contactList!![i]
                 listener.onButtonClick(data)
-            })
+            }
         }
     }
 
-    fun setProductList(products: List<Product>) {
-        productList = products
+    fun setContactList(contacts: List<Contact>) {
+        contactList = contacts
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        return if (productList == null) 0 else productList!!.size
+        return if (contactList == null) 0 else contactList!!.size
     }
 
-//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var item: TextView = itemView.findViewById(R.id.product_row)
-//    }
 inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
@@ -70,5 +58,5 @@ inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 }
 interface OnButtonClickListener{
-    fun onButtonClick(data : Product);
+    fun onButtonClick(data : Contact)
 }
