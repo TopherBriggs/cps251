@@ -32,6 +32,8 @@ class ProductRepository(application: Application) {
 
     private suspend fun asyncInsert(product: Product) {
         productDao?.insertProduct(product)
+        productDao?.getAllProducts()
+        productDao?.getAllProductsDesc()
     }
 
     fun deleteProduct(id : Int) {
