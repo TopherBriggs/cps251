@@ -1,6 +1,7 @@
 package com.example.contactsproject.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,7 +61,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
         }
 
         binding.findButton.setOnClickListener {
-            if(binding.contactName.toString() != "") {
+            if(binding.contactName.text.toString() != "") {
                 viewModel.findProduct(binding.contactName.text.toString())
             } else {
                 Snackbar.make(requireView(), "You must enter a search criteria in the name field", LENGTH_SHORT).show()
@@ -88,7 +89,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
         viewModel.getSearchResults().observe(viewLifecycleOwner, { contacts ->
 
             contacts?.let {
-                if (it.isNotEmpty()) {
+                if (it.isNotEmpty() && binding.contactName.text.toString() != "") {
                     adapter?.setContactList(it)
                 } else {
                    Snackbar.make(requireView(), "No names found matching the criteria", LENGTH_SHORT).show()
