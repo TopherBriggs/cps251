@@ -16,8 +16,10 @@ import androidx.fragment.app.viewModels
 import java.util.*
 
 import com.example.contactsproject.databinding.MainFragmentBinding
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
+import com.google.android.material.snackbar.Snackbar
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(){
 
     private var adapter: ProductListAdapter? = null
 
@@ -56,7 +58,7 @@ class MainFragment : Fragment() {
                 viewModel.insertProduct(product)
                 clearFields()
             } else {
-                binding.productID.text = "Incomplete information"
+                Snackbar.make(requireView(), "You must enter a name and a phone number", LENGTH_SHORT).show()
             }
         }
 
@@ -70,25 +72,22 @@ class MainFragment : Fragment() {
 
     private fun observerSetup() {
 
-        viewModel.getAllProducts()?.observe(this, Observer { products ->
+        viewModel.getAllProducts()?.observe(viewLifecycleOwner, Observer { products ->
             products?.let  {
                 adapter?.setProductList(it)
             }
         })
 
-        viewModel.getSearchResults().observe(this, Observer { products ->
+        viewModel.getSearchResults().observe(viewLifecycleOwner, Observer { products ->
 
             products?.let {
                 if (it.isNotEmpty()) {
-                    binding.productID.text = it[0].id.toString()
-                    binding.contactName.setText(it[0].contactName)
-                    binding.phoneNumber.setText(it[0].phoneNumber);
-//                    binding.productID.text = String.format(Locale.US, "%d", it[0].id)
+//                    binding.productID.text = it[0].id.toString()
 //                    binding.contactName.setText(it[0].contactName)
-//                    binding.phoneNumber.setText(String.format(Locale.US, "%d",
-//                        it[0].phoneNumber))
+//                    binding.phoneNumber.setText(it[0].phoneNumber);
+                    adapter?.setProductList(it)
                 } else {
-                    binding.productID.text = "No Match"
+                   Snackbar.make(requireView(), "No names to Display", LENGTH_SHORT).show()
                 }
             }
         })
@@ -101,7 +100,6 @@ class MainFragment : Fragment() {
     }
 
     private fun clearFields() {
-        binding.productID.text = ""
         binding.contactName.setText("")
         binding.phoneNumber.setText("")
     }

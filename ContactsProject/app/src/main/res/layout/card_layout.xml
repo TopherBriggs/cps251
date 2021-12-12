@@ -16,26 +16,47 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="402dp"
+        android:layout_height="101dp"
         android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/trash"
+            android:layout_width="62dp"
+            android:layout_height="85dp"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#81C784"
+            android:cropToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/itemDetail"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_delete_24" />
 
         <TextView
             android:id="@+id/itemTitle"
             android:layout_width="236dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="0dp"
             android:textSize="30sp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-5dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/trash"
+            tools:text="example test" />
 
         <TextView
             android:id="@+id/itemDetail"
             android:layout_width="236dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/itemTitle"
+            app:layout_constraintStart_toStartOf="@+id/itemTitle"
             app:layout_constraintTop_toBottomOf="@+id/itemTitle"
-            tools:layout_editor_absoluteX="-3dp" />
+            tools:text="(555)555-5555" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
