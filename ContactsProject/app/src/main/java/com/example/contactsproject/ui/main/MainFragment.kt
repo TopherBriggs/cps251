@@ -58,6 +58,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
                 val product = Product(name, quantity)
                 viewModel.insertProduct(product)
                 clearFields()
+                observerSetup()
             } else {
                 Snackbar.make(requireView(), "You must enter a name and a phone number", LENGTH_SHORT).show()
             }
@@ -66,9 +67,11 @@ class MainFragment : Fragment(), OnButtonClickListener{
         binding.findButton.setOnClickListener { viewModel.findProduct(binding.contactName.text.toString()) }
         binding.ASCButton.setOnClickListener {
             viewModel.sortASC()
+            observerSetup()
         }
         binding.DESCButton.setOnClickListener {
             viewModel.sortDESC()
+            observerSetup()
         }
     }
 

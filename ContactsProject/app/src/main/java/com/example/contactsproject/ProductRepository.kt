@@ -11,14 +11,16 @@ class ProductRepository(application: Application) {
     val searchResults = MutableLiveData<List<Product>>()
     private var productDao: ProductDao?
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
-    val allProducts = MutableLiveData<List<Product>>()
+    val allProductsAsc: LiveData<List<Product>>?
+    val allProductsDesc: LiveData<List<Product>>?
 
 
     init {
         val db: ProductRoomDatabase? =
             ProductRoomDatabase.getDatabase(application)
         productDao = db?.productDao()
-        getAllDesc()
+        allProductsAsc = productDao?.getAllProducts()
+        allProductsDesc = productDao?.getAllProductsDesc()
 
     }
 
@@ -49,17 +51,6 @@ class ProductRepository(application: Application) {
         }
     }
 
-    fun getAllDesc(){
-        coroutineScope.launch(Dispatchers.Main) {
-            allProducts.value = asyncAllProducts(true).await()
-        }
-
-    }
-    fun getAllAsc(){
-        coroutineScope.launch(Dispatchers.Main) {
-            allProducts.value = asyncAllProducts(false).await()
-        }
-    }
     /*fun getAllProductsDesc(){
         coroutineScope.launch { Dispatchers.Main{
             allProducts = asyncAllProducts(true).await()!!
@@ -73,16 +64,6 @@ class ProductRepository(application: Application) {
             return@async productDao?.findProduct(name)
         }
 
-    private suspend fun asyncAllProducts(descending : Boolean?): Deferred<List<Product>?> =
 
-        coroutineScope.async(Dispatchers.IO) {
-            if(descending == true){
-                return@async productDao?.getAllProductsDesc()
-
-            }
-            else {
-                return@async productDao?.getAllProducts()
-            }
-        }
 
 }

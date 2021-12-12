@@ -11,19 +11,16 @@ import com.example.contactsproject.ProductRepository
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: ProductRepository = ProductRepository(application)
-    private val allProducts: LiveData<List<Product>>?
+    private var allProducts: LiveData<List<Product>>?
     private val searchResults: MutableLiveData<List<Product>>
 
     init {
-        allProducts = repository.allProducts
+        allProducts = repository.allProductsAsc
         searchResults = repository.searchResults
     }
 
     fun insertProduct(product: Product) {
         repository.insertProduct(product)
-//        for (index in allProducts.){
-//            Log.i("bees", index.contactName!!)
-//        }
 
     }
 
@@ -43,9 +40,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return allProducts
     }
     fun sortASC(){
-        repository.getAllAsc()
+        allProducts = repository.allProductsAsc
     }
     fun sortDESC(){
-        repository.getAllDesc()
+        allProducts = repository.allProductsDesc
+
     }
 }

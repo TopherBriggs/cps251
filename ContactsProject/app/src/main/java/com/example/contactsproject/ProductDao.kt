@@ -20,8 +20,8 @@ interface ProductDao {
     fun deleteProduct(id: Int)
 
     @Query("SELECT * FROM contacts ORDER BY contactName ASC")
-    fun getAllProducts(): List<Product>?
+    fun getAllProducts( ): LiveData<List<Product>>
 
     @Query("SELECT * FROM contacts ORDER BY contactName DESC")
-    fun getAllProductsDesc(): List<Product>?
+    fun getAllProductsDesc(): LiveData<List<Product>>
 }
