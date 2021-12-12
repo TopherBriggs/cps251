@@ -59,7 +59,14 @@ class MainFragment : Fragment(), OnButtonClickListener{
             }
         }
 
-        binding.findButton.setOnClickListener { viewModel.findProduct(binding.contactName.text.toString()) }
+        binding.findButton.setOnClickListener {
+            if(binding.contactName.toString() != "") {
+                viewModel.findProduct(binding.contactName.text.toString())
+            } else {
+                Snackbar.make(requireView(), "You must enter a search criteria in the name field", LENGTH_SHORT).show()
+
+            }
+        }
         binding.ASCButton.setOnClickListener {
             viewModel.sortASC()
             observerSetup()
@@ -84,7 +91,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
                 if (it.isNotEmpty()) {
                     adapter?.setContactList(it)
                 } else {
-                   Snackbar.make(requireView(), "No names to Display", LENGTH_SHORT).show()
+                   Snackbar.make(requireView(), "No names found matching the criteria", LENGTH_SHORT).show()
                 }
             }
         })
