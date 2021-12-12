@@ -19,13 +19,14 @@ import com.example.contactsproject.databinding.MainFragmentBinding
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_SHORT
 import com.google.android.material.snackbar.Snackbar
 
-class MainFragment : Fragment(){
+class MainFragment : Fragment(), OnButtonClickListener{
 
     private var adapter: ProductListAdapter? = null
 
     companion object {
         fun newInstance() = MainFragment()
     }
+
 
     val viewModel: MainViewModel by viewModels()
     private var _binding: MainFragmentBinding? = null
@@ -63,10 +64,11 @@ class MainFragment : Fragment(){
         }
 
         binding.findButton.setOnClickListener { viewModel.findProduct(binding.contactName.text.toString()) }
-
-        binding.deleteButton.setOnClickListener {
-            viewModel.deleteProduct(binding.contactName.text.toString())
-            clearFields()
+        binding.ASCButton.setOnClickListener {
+            viewModel.sortASC()
+        }
+        binding.DESCButton.setOnClickListener {
+            viewModel.sortDESC()
         }
     }
 
@@ -94,7 +96,7 @@ class MainFragment : Fragment(){
     }
 
     private fun recyclerSetup() {
-        adapter = ProductListAdapter(R.layout.product_list_item)
+        adapter = ProductListAdapter(R.layout.product_list_item, this)
         binding.productRecycler.layoutManager = LinearLayoutManager(context)
         binding.productRecycler.adapter = adapter
     }
@@ -102,5 +104,9 @@ class MainFragment : Fragment(){
     private fun clearFields() {
         binding.contactName.setText("")
         binding.phoneNumber.setText("")
+    }
+
+    override fun onButtonClick(data: Product) {
+        viewModel.deleteProduct(data.id)
     }
 }

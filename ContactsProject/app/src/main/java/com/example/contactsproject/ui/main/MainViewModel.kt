@@ -1,6 +1,7 @@
 package com.example.contactsproject.ui.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,14 +21,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun insertProduct(product: Product) {
         repository.insertProduct(product)
+//        for (index in allProducts.){
+//            Log.i("bees", index.contactName!!)
+//        }
+
     }
 
     fun findProduct(name: String) {
         repository.findProduct(name)
     }
 
-    fun deleteProduct(name: String) {
-        repository.deleteProduct(name)
+    fun deleteProduct(id: Int) {
+        repository.deleteProduct(id)
     }
 
     fun getSearchResults(): MutableLiveData<List<Product>> {
@@ -36,5 +41,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllProducts(): LiveData<List<Product>>? {
         return allProducts
+    }
+    fun sortASC(){
+        repository.getAllAsc()
+    }
+    fun sortDESC(){
+        repository.getAllDesc()
     }
 }
