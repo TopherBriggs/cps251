@@ -65,16 +65,25 @@ class MainFragment : Fragment(), OnButtonClickListener{
                 viewModel.findProduct(binding.contactName.text.toString())
             } else {
                 Snackbar.make(requireView(), "You must enter a search criteria in the name field", LENGTH_SHORT).show()
-
             }
         }
         binding.ASCButton.setOnClickListener {
-            viewModel.sortASC()
             observerSetup()
+            viewModel.sortASC()
+            viewModel.getAllContacts()?.observe(viewLifecycleOwner, { contacts ->
+                contacts?.let  {
+                    adapter?.setContactList(it)
+                }
+            })
         }
         binding.DESCButton.setOnClickListener {
-            viewModel.sortDESC()
             observerSetup()
+            viewModel.sortDESC()
+            viewModel.getAllContacts()?.observe(viewLifecycleOwner, { contacts ->
+                contacts?.let  {
+                    adapter?.setContactList(it)
+                }
+            })
         }
     }
 
@@ -89,7 +98,7 @@ class MainFragment : Fragment(), OnButtonClickListener{
         viewModel.getSearchResults().observe(viewLifecycleOwner, { contacts ->
 
             contacts?.let {
-                if (it.isNotEmpty() && binding.contactName.text.toString() != "") {
+                if (it.isNotEmpty()) {
                     adapter?.setContactList(it)
                 } else {
                    Snackbar.make(requireView(), "No names found matching the criteria", LENGTH_SHORT).show()

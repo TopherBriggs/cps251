@@ -14,8 +14,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val searchResults: MutableLiveData<List<Contact>>
 
     init {
-        allContacts = repository.allContactsAsc
+        allContacts = null
         searchResults = repository.searchResults
+        sortASC()
     }
 
     fun insertProduct(contact: Contact) {
@@ -43,6 +44,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
     fun sortDESC(){
         allContacts = repository.allContactsDesc
+
 
     }
 }
