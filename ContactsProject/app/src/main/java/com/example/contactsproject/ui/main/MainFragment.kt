@@ -68,22 +68,12 @@ class MainFragment : Fragment(), OnButtonClickListener{
             }
         }
         binding.ASCButton.setOnClickListener {
-            observerSetup()
             viewModel.sortASC()
-            viewModel.getAllContacts()?.observe(viewLifecycleOwner, { contacts ->
-                contacts?.let  {
-                    adapter?.setContactList(it)
-                }
-            })
+            observerSetup()
         }
         binding.DESCButton.setOnClickListener {
-            observerSetup()
             viewModel.sortDESC()
-            viewModel.getAllContacts()?.observe(viewLifecycleOwner, { contacts ->
-                contacts?.let  {
-                    adapter?.setContactList(it)
-                }
-            })
+            observerSetup()
         }
     }
 
